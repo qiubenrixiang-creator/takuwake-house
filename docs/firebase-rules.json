@@ -1,0 +1,99 @@
+{
+  "rules": {
+    "roster": {
+      ".read": true,
+      ".write": true,
+      "$entry": {
+        ".validate": "newData.hasChildren(['name', 'table', 'color', 'timestamp'])",
+        "name": {
+          ".validate": "newData.isString() && newData.val().length <= 30"
+        },
+        "table": {
+          ".validate": "newData.isString() && newData.val().length <= 30"
+        },
+        "color": {
+          ".validate": "newData.isString() && newData.val().length <= 20"
+        },
+        "timestamp": {
+          ".validate": "newData.isNumber()"
+        },
+        "isCollecting": {
+          ".validate": "newData.isBoolean()"
+        },
+        "exp": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 2"
+        },
+        "leave": {
+          ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 1"
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    },
+    "config": {
+      ".read": true,
+      ".write": true,
+      "participantCount": {
+        ".validate": "newData.isNumber() && newData.val() >= 2 && newData.val() <= 200"
+      },
+      "holdResults": {
+        ".validate": "newData.isBoolean()"
+      },
+      "revealed": {
+        ".validate": "newData.isBoolean()"
+      },
+      "revealedAt": {
+        ".validate": "newData.isNumber()"
+      },
+      "$other": {
+        ".validate": false
+      }
+    },
+    "legacies": {
+      ".read": true,
+      ".write": true,
+      "$who": {
+        ".validate": "newData.hasChildren(['name', 'cond', 'author'])",
+        "name": { ".validate": "newData.isString() && newData.val().length <= 20" },
+        "lore": { ".validate": "newData.isString() && newData.val().length <= 60" },
+        "cond": { ".validate": "newData.isString() && newData.val().length <= 20" },
+        "tableKey": { ".validate": "newData.isString() && newData.val().length <= 4" },
+        "author": { ".validate": "newData.isString() && newData.val().length <= 30" },
+        "ts": { ".validate": "newData.isNumber()" },
+        "$otherLegacy": { ".validate": false }
+      }
+    },
+    "members": {
+      ".read": true,
+      ".write": true,
+      "$member": {
+        ".validate": "newData.hasChildren(['name'])",
+        "name": {
+          ".validate": "newData.isString() && newData.val().length <= 30"
+        },
+        "events": {
+          "$day": {
+            ".validate": "newData.hasChildren(['table'])",
+            "table": {
+              ".validate": "newData.isString() && newData.val().length <= 30"
+            },
+            "ts": {
+              ".validate": "newData.isNumber()"
+            },
+            "$otherEvent": {
+              ".validate": false
+            }
+          }
+        },
+        "$otherMember": {
+          ".validate": false
+        }
+      }
+    },
+    "$other": {
+      ".read": false,
+      ".write": false
+    }
+  }
+}
